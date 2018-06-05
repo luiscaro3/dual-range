@@ -1,11 +1,37 @@
-.range {
-    justify-content: space-between;
-    flex-wrap: wrap;
-    display: flex;
-    width: 100%;
-}
+// Variables
+$range-slider-line: $color-primary !default;
+$range-slider-line-border: 1px solid shade($color-primary, 15%) !default;
 
-.range-slider {
+$range-slider-handle-size: 20px !default;
+$range-slider-handle-size-y: $range-slider-handle-size !default;
+$range-slider-handle-radius: 100% !default;
+$range-slider-handle-border: 1px solid #bfcace !default;
+$range-slider-handle-icon-size: 6px !default;
+$range-slider-handle-hover-bg: #ffffff !default;
+$range-slider-handle-hover-icon-color: $color-primary !default;
+$range-slider-handle-active-icon-color: $color-primary !default;
+$range-slider-labels-order: 3 !default;
+$range-sldier-breakpoints-color: inherit !default;
+
+$range-slider-handle-bg: radial-gradient(#7c8b90 3px, #eef2f3 3px) !default;
+$range-slider-handle-bg-active: radial-gradient(
+  $range-slider-handle-hover-icon-color 3px,
+  $range-slider-handle-hover-bg 3px
+) !default;
+$range-slider-icon: none !default;
+
+.range {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  display: flex;
+  width: 100%;
+  > * {
+    -webkit-appearance: none;
+    border: none;
+    outline: none;
+    width: 100%;
+  }
+  &-slider {
     -webkit-appearance: none;
     background: transparent;
     pointer-events: none;
@@ -17,67 +43,130 @@
     top: -8px;
     margin: 0;
     border: 0;
-}
 
-.range-slider-container {
-    background: #515151;
-    background-repeat: no-repeat;
-    border: 0;
-    border-radius: 5px;
-    position: relative;
-    margin: 18px auto;
-    border-right: 0;
-    border-left: 0;
-    color: #ededed;
-    height: 6px;
-    width: 100%;
-    z-index: 1;
-}
+    @include slider-thumb() {
+      background: $range-slider-icon center no-repeat, $range-slider-handle-bg;
+      border-radius: $range-slider-handle-radius;
+      border: $range-slider-handle-border;
+      height: $range-slider-handle-size-y;
+      width: $range-slider-handle-size;
+      -webkit-appearance: none;
+      box-sizing: border-box;
+      pointer-events: all;
+      cursor: pointer;
+      z-index: 2;
+      @include transition(all 0.4s ease-in-out);
+      &:hover {
+        background-color: $range-slider-handle-bg-active;
+      }
+    }
 
-.range>* {
-    -webkit-appearance: none;
-    border: none;
-    outline: none;
-    width: 100%;
-}
-
-.range-slider::-webkit-slider-thumb {
-    background: url(../../b2c/images/range-slider-icon.png) center no-repeat,#9b9b9b;
-    border-radius: 0;
-    border: 0;
-    height: 20px;
-    width: 20px;
-    -webkit-appearance: none;
-    box-sizing: border-box;
-    pointer-events: all;
-    cursor: pointer;
-    z-index: 2;
-    -webkit-transition: all 0.4s ease-in-out;
-    -moz-transition: all 0.4s ease-in-out;
-    transition: all 0.4s ease-in-out;
-}
-
-.filter-section-range .range-output {
-    -webkit-box-flex: inherit;
-    -moz-box-flex: inherit;
-    box-flex: inherit;
-    -webkit-flex: inherit;
-    -moz-flex: inherit;
-    -ms-flex: inherit;
-    flex: inherit;
-}
-
-.range-output-max {
-    text-align: right;
-}
-
-.range-output {
+    &::-ms-tooltip {
+      display: none;
+    }
+    &::-ms-track {
+      background: transparent;
+      box-sizing: border-box;
+      color: transparent;
+      border: none;
+      height: 20px;
+    }
+    &::-ms-fill-lower {
+      background: transparent;
+    }
+    &::-ms-fill-upper {
+      background: transparent;
+    }
+    &.is-active:focus::-webkit-slider-thumb {
+      background: $range-slider-icon center no-repeat,
+        $range-slider-handle-bg-active;
+      border-color: $range-slider-handle-hover-icon-color;
+      position: relative;
+    }
+    &::-moz-range-track {
+      background: transparent;
+    }
+    // When we drop support for IE we'll use the --var property to set background colors
+    &-container {
+      background: $range-slider-line; // Active color of background
+      background-repeat: no-repeat;
+      border: $range-slider-line-border;
+      border-radius: 5px;
+      position: relative;
+      margin: 18px auto;
+      border-right: 0;
+      border-left: 0;
+      color: $range-slider-background;
+      // Inactive color of background
+      height: 6px;
+      width: 100%;
+      z-index: 1;
+    }
+  }
+  // They have to have the same width of the thumb
+  &-breakpoint {
+    color: $range-sldier-breakpoints-color;
+    width: $range-slider-handle-size;
+    position: absolute;
+    text-align: center;
+    font-size: 12px;
+    &:before {
+      content: "|";
+      display: block;
+      text-align: center;
+    }
+    &-container {
+      position: relative;
+      width: 100%;
+      &:not(:empty) {
+        height: 25px;
+      }
+    }
+  }
+  &-output {
     margin-top: 10px;
     padding: 0 2px;
     flex: 1;
+    &:before {
+      content: " " attr(data-prefix);
+    }
+    &:after {
+      content: " " attr(data-postfix);
+    }
+    > * {
+      display: inline;
+      white-space: nowrap;
+    }
+    &-max {
+      text-align: right;
+    }
+    &-container {
+      order: $range-slider-labels-order;
+      display: flex;
+    }
+  }
 }
-
-.range-output-container {
-    display: flex;
-    justify-content: space-between;
+// Hacks for IE11
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .range-slider {
+    pointer-events: all;
+  }
+}
+// Hacks for Edge 13
+@supports (-ms-accelerator: true) {
+  .range-slider {
+    pointer-events: all;
+  }
+  input[type="range"]::-ms-thumb {
+    margin: -8px 0 0 2px;
+  }
+}
+// Hacks for Edge 14
+@supports (-ms-ime-align: auto) {
+  .range-slider {
+    pointer-events: all;
+  }
+  input[type="range"]::-ms-thumb {
+    margin: -8px 0 0 2px;
+  }
 }
