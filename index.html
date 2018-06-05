@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Universal native range slider by Luis Caro</title>
+    <meta name="viewport" content="minimum-scale=1, width=device-width">
+    
+    <!-- FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,600" rel="stylesheet">
+
+    <!-- CSS -->
+    <link href="assets/main.css" type="text/css" rel="stylesheet">
+  
+  </head>
+  <body>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script type="text/javascript" src="assets/main.js"></script>
+
+    <h2>Cross-browser compatible (EDGE/IE11), native responsive dual range slider with added functionality.</h2>
+
+    <p>Try sliding in all broswers. Edit input manually to type in value.</p>
+    <div class="range" id="range">
+        <section class="range-slider-container">
+          <input type="range" class="range-slider" value="1" data-range-slider="min">
+          <input type="range" class="range-slider" value="100" data-range-slider="max">
+        </section>
+  
+        <section class="range-breakpoint-container" data-range-breakpoints-container=""></section>
+  
+        <section class="range-output-container">
+          <span class="range-output" data-range-output="min"contenteditable></span>
+          <span class="range-output range-output-max" data-range-output="max" contenteditable></span>
+        </section>
+      </div>
+
+      <br>
+      <hr>
+      <br>
+
+      <p>Breakpoints snap handles with animation</p>
+      <div class="range" id="range2" data-range-breakpoints="[20, 35, 67]">
+          <section class="range-slider-container">
+            <input type="range" class="range-slider" min="1" max="100" value="1" data-range-slider="min">
+            <input type="range" class="range-slider" min="1" max="100" value="100" data-range-slider="max">
+          </section>
+    
+          <section class="range-breakpoint-container" data-range-breakpoints-container></section>
+    
+          <section class="range-output-container">
+            <span class="range-output" data-range-output="min" data-prefix="$"></span>
+            <span class="range-output range-output-max" data-range-output="max" data-prefix="$"></span>
+          </section>
+        </div>
+
+    <script>
+      var range = new Range();
+      range('#range');
+      
+      var range2 = new Range('#range2');
+      range2('#range2');
+    </script>
+  </body>
+</html>
+
