@@ -1,6 +1,19 @@
+@mixin slider-thumb() {
+  &::-webkit-slider-thumb {
+    @content;
+  }
+  &::-moz-range-thumb {
+    @content;
+  }
+  &::-ms-thumb {
+    @content;
+  }
+}
+
 // Variables
-$range-slider-line: $color-primary !default;
-$range-slider-line-border: 1px solid shade($color-primary, 15%) !default;
+$range-slider-line: #044d6d !default;
+$range-slider-line-border: 1px solid shade(#044d6d, 15%) !default;
+$range-slider-background: #eee;
 
 $range-slider-handle-size: 20px !default;
 $range-slider-handle-size-y: $range-slider-handle-size !default;
@@ -8,10 +21,10 @@ $range-slider-handle-radius: 100% !default;
 $range-slider-handle-border: 1px solid #bfcace !default;
 $range-slider-handle-icon-size: 6px !default;
 $range-slider-handle-hover-bg: #ffffff !default;
-$range-slider-handle-hover-icon-color: $color-primary !default;
-$range-slider-handle-active-icon-color: $color-primary !default;
+$range-slider-handle-hover-icon-color: #044d6d !default;
+$range-slider-handle-active-icon-color: #044d6d !default;
 $range-slider-labels-order: 3 !default;
-$range-sldier-breakpoints-color: inherit !default;
+$range-slider-breakpoints-color: inherit !default;
 
 $range-slider-handle-bg: radial-gradient(#7c8b90 3px, #eef2f3 3px) !default;
 $range-slider-handle-bg-active: radial-gradient(
@@ -19,7 +32,6 @@ $range-slider-handle-bg-active: radial-gradient(
   $range-slider-handle-hover-bg 3px
 ) !default;
 $range-slider-icon: none !default;
-
 .range {
   justify-content: space-between;
   flex-wrap: wrap;
@@ -43,7 +55,6 @@ $range-slider-icon: none !default;
     top: -8px;
     margin: 0;
     border: 0;
-
     @include slider-thumb() {
       background: $range-slider-icon center no-repeat, $range-slider-handle-bg;
       border-radius: $range-slider-handle-radius;
@@ -55,12 +66,11 @@ $range-slider-icon: none !default;
       pointer-events: all;
       cursor: pointer;
       z-index: 2;
-      @include transition(all 0.4s ease-in-out);
+      transition: all 0.4s ease-in-out;
       &:hover {
         background-color: $range-slider-handle-bg-active;
       }
     }
-
     &::-ms-tooltip {
       display: none;
     }
@@ -105,7 +115,7 @@ $range-slider-icon: none !default;
   }
   // They have to have the same width of the thumb
   &-breakpoint {
-    color: $range-sldier-breakpoints-color;
+    color: $range-slider-breakpoints-color;
     width: $range-slider-handle-size;
     position: absolute;
     text-align: center;
