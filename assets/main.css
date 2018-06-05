@@ -7,6 +7,13 @@
   width: 100%;
 }
 
+.range > * {
+  -webkit-appearance: none;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
 .range-slider {
   -webkit-appearance: none;
   background: transparent;
@@ -21,32 +28,10 @@
   border: 0;
 }
 
-.range-slider-container {
-  background: #515151;
-  background-repeat: no-repeat;
-  border: 0;
-  border-radius: 5px;
-  position: relative;
-  margin: 18px auto;
-  border-right: 0;
-  border-left: 0;
-  color: #ededed;
-  height: 6px;
-  width: 100%;
-  z-index: 1;
-}
-
-.range > * {
-  -webkit-appearance: none;
-  border: none;
-  outline: none;
-  width: 100%;
-}
-
 .range-slider::-webkit-slider-thumb {
-  background: url(../../b2c/images/range-slider-icon.png) center no-repeat, #9b9b9b;
-  border-radius: 0;
-  border: 0;
+  background: none center no-repeat, radial-gradient(#7c8b90 3px, #eef2f3 3px);
+  border-radius: 100%;
+  border: 1px solid #bfcace;
   height: 20px;
   width: 20px;
   -webkit-appearance: none;
@@ -57,15 +42,112 @@
   transition: all 0.4s ease-in-out;
 }
 
-.filter-section-range .range-output {
-  -webkit-box-flex: inherit;
-  box-flex: inherit;
-  -moz-flex: inherit;
-  flex: inherit;
+.range-slider::-webkit-slider-thumb:hover {
+  background-color: radial-gradient(#044d6d 3px, #ffffff 3px);
 }
 
-.range-output-max {
-  text-align: right;
+.range-slider::-moz-range-thumb {
+  background: none center no-repeat, radial-gradient(#7c8b90 3px, #eef2f3 3px);
+  border-radius: 100%;
+  border: 1px solid #bfcace;
+  height: 20px;
+  width: 20px;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  pointer-events: all;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.4s ease-in-out;
+}
+
+.range-slider::-moz-range-thumb:hover {
+  background-color: radial-gradient(#044d6d 3px, #ffffff 3px);
+}
+
+.range-slider::-ms-thumb {
+  background: none center no-repeat, radial-gradient(#7c8b90 3px, #eef2f3 3px);
+  border-radius: 100%;
+  border: 1px solid #bfcace;
+  height: 20px;
+  width: 20px;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  pointer-events: all;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.4s ease-in-out;
+}
+
+.range-slider::-ms-thumb:hover {
+  background-color: radial-gradient(#044d6d 3px, #ffffff 3px);
+}
+
+.range-slider::-ms-tooltip {
+  display: none;
+}
+
+.range-slider::-ms-track {
+  background: transparent;
+  box-sizing: border-box;
+  color: transparent;
+  border: none;
+  height: 20px;
+}
+
+.range-slider::-ms-fill-lower {
+  background: transparent;
+}
+
+.range-slider::-ms-fill-upper {
+  background: transparent;
+}
+
+.range-slider.is-active:focus::-webkit-slider-thumb {
+  background: none center no-repeat, radial-gradient(#044d6d 3px, #ffffff 3px);
+  border-color: #044d6d;
+  position: relative;
+}
+
+.range-slider::-moz-range-track {
+  background: transparent;
+}
+
+.range-slider-container {
+  background: #044d6d;
+  background-repeat: no-repeat;
+  border: 1px solid shade(#044d6d, 15%);
+  border-radius: 5px;
+  position: relative;
+  margin: 18px auto;
+  border-right: 0;
+  border-left: 0;
+  color: #eee;
+  height: 6px;
+  width: 100%;
+  z-index: 1;
+}
+
+.range-breakpoint {
+  color: inherit;
+  width: 20px;
+  position: absolute;
+  text-align: center;
+  font-size: 12px;
+}
+
+.range-breakpoint:before {
+  content: "|";
+  display: block;
+  text-align: center;
+}
+
+.range-breakpoint-container {
+  position: relative;
+  width: 100%;
+}
+
+.range-breakpoint-container:not(:empty) {
+  height: 25px;
 }
 
 .range-output {
@@ -75,9 +157,50 @@
           flex: 1;
 }
 
+.range-output:before {
+  content: " " attr(data-prefix);
+}
+
+.range-output:after {
+  content: " " attr(data-postfix);
+}
+
+.range-output > * {
+  display: inline;
+  white-space: nowrap;
+}
+
+.range-output-max {
+  text-align: right;
+}
+
 .range-output-container {
+  -webkit-box-ordinal-group: 4;
+          order: 3;
   display: -webkit-box;
   display: flex;
-  -webkit-box-pack: justify;
-          justify-content: space-between;
+}
+
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  .range-slider {
+    pointer-events: all;
+  }
+}
+
+@supports (-ms-accelerator: true) {
+  .range-slider {
+    pointer-events: all;
+  }
+  input[type="range"]::-ms-thumb {
+    margin: -8px 0 0 2px;
+  }
+}
+
+@supports (-ms-ime-align: auto) {
+  .range-slider {
+    pointer-events: all;
+  }
+  input[type="range"]::-ms-thumb {
+    margin: -8px 0 0 2px;
+  }
 }
